@@ -14,7 +14,9 @@
 		wp_localize_script('frontend', 'wnm_th', array('p_url' => get_template_directory_uri(),'a_url'=>admin_url('admin-ajax.php')));
 		wp_enqueue_style('frontend', get_template_directory_uri().'/css/frontend.css');
 		wp_enqueue_style( 'customcss', get_template_directory_uri() . '/css/customcss.css');
-		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.css');		
+		//wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
+		wp_enqueue_script('jquery.masonry',get_template_directory_uri().'/js/jquery.masonry.js');
+				
 	}		
 	add_action('admin_enqueue_scripts', 'admin_th_script');
 	function admin_th_script() {
@@ -22,7 +24,7 @@
 		wp_enqueue_style('backend', get_template_directory_uri().'/css/backend.css');	
 	}
 	
-	$name="Project";
+	$name="Projects";
 	$slug="project";
 	$support_arr=array("title","editor","thumbnail");
 	$labels = array(
@@ -52,6 +54,37 @@
 					'supports'=>$support_arr
 				); 
 	register_post_type( $slug , $args);
+	
+	$name="Services";
+	$slug="service";
+	$support_arr=array("title","editor","thumbnail");
+	$labels = array(
+            'name' => _x($name, $name.' General Name'),
+            'singular_name' => _x('News Item', $name.' Singular Name'),
+            'add_new' => _x('Add New '.$name, 'Add New '.$name),
+            'add_new_item' => __('Add New '.$name),
+            'edit_item' => __('Edit '.$name),
+            'new_item' => __('New '.$name),
+            'view_item' => __('View '.$name),
+            'search_items' => __('New'),
+            'not_found' =>  __('Nothing found', 'u-design'),
+            'not_found_in_trash' => __('Nothing found in Trash'),
+            'parent_item_colon' => ''
+			);
+	$args = array(
+					'labels' => $labels,
+					'public' => true,
+					'publicly_queryable' => true,
+					'show_ui' => true,
+					'query_var' => true,
+					'rewrite' => true,
+					'capability_type' => 'post',
+					'hierarchical' => false,
+					'menu_position' => 7,
+					'taxonomies' => array('post_tag'),
+					'supports'=>$support_arr
+				); 
+	//register_post_type( $slug , $args);
 	
 	add_action( 'add_meta_boxes', 'create_album_in_post_type' );
 	function create_album_in_post_type(){
@@ -120,31 +153,24 @@
 	}
 	
 	
-	function themename_customize_register($wp_customize){
-    
-		$wp_customize->add_section('themename_color_scheme', array(
-			'title'    => __('Logo', 'themename'),
-			'priority' => 120,
-		)); 
-	 
+	function themename_customize_register($wp_customize){	 
+		
 		//  =============================
-		//  = Image Upload              =
+		//  = Logo mobile            =
 		//  =============================
-		$wp_customize->add_setting('image_header_logo', array(
+		$wp_customize->add_setting('image_mobile_logo', array(
 			'default'           => get_template_directory_uri().'/images/logo_default.png',
 			'capability'        => 'edit_theme_options',
 			'type'           => 'option',
 	 
 		));
-	 
-		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_header_logo', array(
-			'label'    => __('Header logo', 'themename'),
-			'section'  => 'themename_color_scheme',
-			'settings' => 'image_header_logo',
+		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_mobile_logo', array(
+			'label'    => __('Mobile logo', 'themename'),
+			'section'  => 'title_tagline',
+			'settings' => 'image_mobile_logo',
 		)));
-		
 		//  =============================
-		//  = Image Upload              =
+		//  = Footer logo             =
 		//  =============================
 		$wp_customize->add_setting('image_footer_logo', array(
 			'default'           => get_template_directory_uri().'/images/logo_default.png',
@@ -155,9 +181,74 @@
 	 
 		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_footer_logo', array(
 			'label'    => __('Footer logo', 'themename'),
-			'section'  => 'themename_color_scheme',
+			'section'  => 'title_tagline',
 			'settings' => 'image_footer_logo',
 		)));
+		
+		//  =============================
+		//  = Footer logo             =
+		//  =============================
+		$wp_customize->add_setting('image_footer_logo_mobile', array(
+			'default'           => get_template_directory_uri().'/images/logo_default.png',
+			'capability'        => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+	 
+		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_footer_logo_mobile', array(
+			'label'    => __('Footer logo mobile', 'themename'),
+			'section'  => 'title_tagline',
+			'settings' => 'image_footer_logo_mobile',
+		)));
+		//  =============================
+		//  = background footer             =
+		//  =============================
+		$wp_customize->add_setting('image_footer_bg', array(
+			'default'           => get_template_directory_uri().'/images/logo_default.png',
+			'capability'        => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+	 
+		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_footer_bg', array(
+			'label'    => __('Background Footer Image', 'themename'),
+			'section'  => 'title_tagline',
+			'settings' => 'image_footer_bg',
+		)));
+		
+		
+		//  =============================
+		//  = Footer text                =
+		//  =============================
+		$wp_customize->add_setting('footer_text', array(
+			'default'        => '',
+			'capability'     => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+	 
+		$wp_customize->add_control('footer_text', array(
+			'label'      => __('Text footer', 'themename'),
+			'section'    => 'title_tagline',
+			'settings'   => 'footer_text',
+		));
+		
+		//  =============================
+		//  = Copy right              =
+		//  =============================
+		$wp_customize->add_setting('copyright_text', array(
+			'default'        => '',
+			'capability'     => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+	 
+		$wp_customize->add_control('copyright_text', array(
+			'label'      => __('Copyright', 'themename'),
+			'section'    => 'title_tagline',
+			'settings'   => 'copyright_text',
+		));
+		
     
 	}
  

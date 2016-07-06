@@ -124,6 +124,7 @@ function twentysixteen_setup() {
 	 */
 	add_editor_style( array( 'css/editor-style.css', twentysixteen_fonts_url() ) );
 
+
 	// Indicate widget sidebars can use selective refresh in the Customizer.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 }
