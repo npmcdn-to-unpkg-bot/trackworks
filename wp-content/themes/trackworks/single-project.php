@@ -8,36 +8,8 @@
  */
 
 get_header(); ?>
-<style>
-	
-		/* ---- grid ---- */
-		
-		.grid {
-		  /* center */
-		  margin: 0 auto;
-		}
-		
-		/* clearfix */
-		.grid:after {
-		  content: '';
-		  display: block;
-		  clear: both;
-		}
-		
-		/* ---- grid-item ---- */
-		
-		.grid-item {
-		  width: 33.33333333%;
-		  padding: 15px;
-		}
-
-		.grid-item img{ width:100%;}
-		
-		.bottom-content{ position:relative}
-		.top-content{ padding-bottom: 98px}
-</style>
 <div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
+	<main id="main" class="site-main">
 		<div class="container">
 			<div class="top-content">
 				<div class="left-content wpb_column vc_column_container vc_col-sm-6">
@@ -78,10 +50,42 @@ get_header(); ?>
 					<div style="clear:both"></div>				
 			</div>
 			
+			<?php
+			if(wp_is_mobile()){
+				?>
+				<div class="pag-content pag-content-mobile">
+				<?php
+				$next_post = get_previous_post();
+				$prev_post= get_next_post();
+				?>
+				<?php
+				if(!empty($prev_post)){
+				?>
+				<div class="pre-pag">
+					<a href="<?php echo get_page_link($prev_post->ID); ?>" ><?php _e('Previous','trackworks'); ?></a>
+				</div>
+				<?php
+				}
+				?>
+				<?php
+				if(!empty($next_post)){
+				?>
+				<div class="next-pag">
+					<a href="<?php echo get_page_link($next_post->ID); ?>" ><?php _e('Next','trackworks'); ?></a>
+				</div>
+				<?php
+				}
+				?>
+				</div>
+				<?php
+			
+			}
+			else{
+			?>
 			<div class="pag-content">
 				<?php
-				$next_post = get_next_post();
-				$prev_post= get_previous_post();
+				$next_post = get_previous_post();
+				$prev_post= get_next_post();
 				?>
 				<?php
 				if(!empty($prev_post)){
@@ -101,7 +105,11 @@ get_header(); ?>
 				<?php
 				}
 				?>
-			</div>
+				</div>
+			<?php
+			}
+			?>
+			
 		</div>
 
 	</main><!-- .site-main -->
