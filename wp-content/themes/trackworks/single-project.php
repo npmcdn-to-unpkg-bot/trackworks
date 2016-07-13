@@ -33,13 +33,13 @@ get_header(); ?>
 							$rand=rand(1,5);
 							$class="";
 							if($rand==2){
-								$class="grid-item--height2";
+								$class="";
 							}
 							if($rand==3){
-								$class="grid-item--height3";
+								$class="";
 							}
 							?>
-							<div class="grid-item <?php echo $class;  ?>">
+							<div class="grid-item item single-project <?php echo $class;  ?>">
 								<img src="<?php echo $url; ?>" alt="" />
 							</div>
 							<?php
@@ -117,8 +117,11 @@ get_header(); ?>
 	</main><!-- .site-main -->
 </div><!-- .content-area -->
 <?php get_footer(); ?>
+em sửa hai file single-project.php và style.css
+
 <script type="text/javascript">
-		jQuery(document).ready(function(){
+		//jQuery(document).ready(function(){
+			/*
 			var $grid=jQuery('.grid').masonry({
 			  itemSelector: '.grid-item',
 			  isFitWidth: true,
@@ -126,5 +129,14 @@ get_header(); ?>
 			$grid.imagesLoaded().progress( function() {
 			  $grid.masonry('layout');
 			});
-		});
+			*/
+			
+			var $grid = jQuery('.grid').imagesLoaded( function() {
+			  // init Masonry after all images have loaded
+			  $grid.masonry({
+				itemSelector: '.grid-item',
+			  	isFitWidth: true,
+			  });
+			});
+		//});
 </script>

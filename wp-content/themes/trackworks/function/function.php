@@ -15,7 +15,7 @@
 		wp_enqueue_style('frontend', get_template_directory_uri().'/css/frontend.css');
 		wp_enqueue_style( 'customcss', get_template_directory_uri() . '/css/customcss.css');
 		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
-		wp_enqueue_script('jquery.masonry',get_template_directory_uri().'/js/jquery.masonry.js',array(),'', true);
+		//wp_enqueue_script('jquery.masonry',get_template_directory_uri().'/js/jquery.masonry.js',array(),'', true);
 				
 	}		
 	add_action('admin_enqueue_scripts', 'admin_th_script');
