@@ -8,14 +8,14 @@
 	}
 	add_action( 'wp_enqueue_scripts', 'theme_th_scripts' );
 	function theme_th_scripts() {
-		wp_enqueue_script('labory',get_template_directory_uri().'/js/labory.js');
-		wp_localize_script('labory', 'wnm_labory_p_url', array('p_url' => get_template_directory_uri().'/images/','a_url'=>admin_url('admin-ajax.php')));
+		//wp_enqueue_script('labory',get_template_directory_uri().'/js/labory.js');
+		//wp_localize_script('labory', 'wnm_labory_p_url', array('p_url' => get_template_directory_uri().'/images/','a_url'=>admin_url('admin-ajax.php')));
 		wp_enqueue_script('frontend',get_template_directory_uri().'/js/frontend.js',array(),'', true);
 		wp_localize_script('frontend', 'wnm_th', array('p_url' => get_template_directory_uri(),'a_url'=>admin_url('admin-ajax.php')));
 		wp_enqueue_style('frontend', get_template_directory_uri().'/css/frontend.css');
 		wp_enqueue_style( 'customcss', get_template_directory_uri() . '/css/customcss.css');
-		//wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
-		wp_enqueue_script('jquery.masonry',get_template_directory_uri().'/js/jquery.masonry.js');
+		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.css');
+		wp_enqueue_script('jquery.masonry',get_template_directory_uri().'/js/jquery.masonry.js',array(),'', true);
 				
 	}		
 	add_action('admin_enqueue_scripts', 'admin_th_script');
@@ -158,6 +158,21 @@
 		//  =============================
 		//  = Logo mobile            =
 		//  =============================
+		$wp_customize->add_setting('image_mylogo', array(
+			'default'           => get_template_directory_uri().'/images/logo_default.png',
+			'capability'        => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_mylogo', array(
+			'label'    => __('Logo', 'themename'),
+			'section'  => 'title_tagline',
+			'settings' => 'image_mylogo',
+		)));
+		
+		//  =============================
+		//  = Logo mobile            =
+		//  =============================
 		$wp_customize->add_setting('image_mobile_logo', array(
 			'default'           => get_template_directory_uri().'/images/logo_default.png',
 			'capability'        => 'edit_theme_options',
@@ -168,6 +183,21 @@
 			'label'    => __('Mobile logo', 'themename'),
 			'section'  => 'title_tagline',
 			'settings' => 'image_mobile_logo',
+		)));
+		
+		//  =============================
+		//  = Logo mobile            =
+		//  =============================
+		$wp_customize->add_setting('image_mobile_logo_white', array(
+			'default'           => get_template_directory_uri().'/images/logo_default.png',
+			'capability'        => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+		$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'image_mobile_logo_white', array(
+			'label'    => __('Mobile logo open', 'themename'),
+			'section'  => 'title_tagline',
+			'settings' => 'image_mobile_logo_white',
 		)));
 		//  =============================
 		//  = Footer logo             =
@@ -247,6 +277,22 @@
 			'label'      => __('Copyright', 'themename'),
 			'section'    => 'title_tagline',
 			'settings'   => 'copyright_text',
+		));
+		
+		//  =============================
+		//  = Copy right              =
+		//  =============================
+		$wp_customize->add_setting('copyright_text_mobile', array(
+			'default'        => '',
+			'capability'     => 'edit_theme_options',
+			'type'           => 'option',
+	 
+		));
+	 
+		$wp_customize->add_control('copyright_text_mobile', array(
+			'label'      => __('Copyright mobile', 'themename'),
+			'section'    => 'title_tagline',
+			'settings'   => 'copyright_text_mobile',
 		));
 		
     

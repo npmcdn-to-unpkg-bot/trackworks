@@ -28,12 +28,8 @@
 		<div class="logo wpb_column vc_column_container vc_col-sm-4" >
 			<?php 
 			if(!wp_is_mobile()){
-				//$custom= str_replace('itemprop="url"','',get_custom_logo());
-				//echo str_replace('itemprop="logo"','',$custom);
-				?>
-				<a href="<?php echo home_url(); ?>" class="custom-logo" rel="home" data-black="<?php echo get_option('image_mobile_logo'); ?>" data-white="<?php echo get_option('image_mobile_logo_white'); ?>">
-					<img src="<?php echo get_option('image_mylogo'); ?>" class="custom-logo" alt="logo" ></a>
-				<?php
+				$custom= str_replace('itemprop="url"','',get_custom_logo());
+				echo str_replace('itemprop="logo"','',$custom);
 			}
 			else{
 				?>
@@ -48,12 +44,7 @@
 			wp_nav_menu(array('wp_nav_menu'));
 		?>
 		</div>
-		
-		<a href="#" class="btn-menu" data-black='<img src="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" alt="logo"/>' data-white='<img src="<?php echo get_template_directory_uri(); ?>/images/close-menu.png" alt="logo"/>' ><img src="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" alt="logo"/></div></a>
-		
-		
+		<a href="#" class="btn-menu" data-black="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" data-white="<?php echo get_template_directory_uri(); ?>/images/close-menu.png" ><img src="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" alt="logo"/></a>
 		<div class="clear"></div>
 	</div>
 </header>
-
-<!--<a href="#" class="btn-menu" data-black='<img src="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" alt="logo"/>' data-white='<i class="fa fa-times" aria-hidden="true"></i>' ><img src="<?php echo get_template_directory_uri(); ?>/images/btn-menu-mobile.png" alt="logo"/></div></a>-->

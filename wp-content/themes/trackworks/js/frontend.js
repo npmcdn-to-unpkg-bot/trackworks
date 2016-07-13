@@ -14,5 +14,21 @@ jQuery(window).load(function(){
 	jQuery('#toTop').click(function(){
 		jQuery('html, body').animate({scrollTop : 0},800);
 		return false;
-	});							 
+	});
 })
+
+jQuery(function($) {		
+	function checkFooter() {
+		var windowH = $(window).height(),
+			ducumentH = $('header').height() + $('#primary').height() + $('.footer-wrapper').height(),
+			footer = $('.footer-wrapper');
+		if (ducumentH < windowH) {
+			footer.addClass("fixed");
+		} else {
+			footer.removeClass("fixed");
+		}
+	}
+	$(window).on("load resize", function () {
+		checkFooter();
+	});
+});
