@@ -8,6 +8,8 @@
  */
 
 get_header(); ?>
+<script type="text/javascript" src="<?php echo get_template_directory_uri().'/js/jquery.masonry.js';?>"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
 		<div class="container">
@@ -31,10 +33,10 @@ get_header(); ?>
 							$rand=rand(1,5);
 							$class="";
 							if($rand==2){
-								$class=".grid-item--height2";
+								$class="grid-item--height2";
 							}
 							if($rand==3){
-								$class=".grid-item--height3";
+								$class="grid-item--height3";
 							}
 							?>
 							<div class="grid-item <?php echo $class;  ?>">
@@ -116,10 +118,13 @@ get_header(); ?>
 </div><!-- .content-area -->
 <?php get_footer(); ?>
 <script type="text/javascript">
-		jQuery(window).load(function(){
-			jQuery('.grid').masonry({
+		jQuery(document).ready(function(){
+			var $grid=jQuery('.grid').masonry({
 			  itemSelector: '.grid-item',
 			  isFitWidth: true,
 			});
+			$grid.imagesLoaded().progress( function() {
+			  $grid.masonry('layout');
+			});
 		});
-		</script>
+</script>
