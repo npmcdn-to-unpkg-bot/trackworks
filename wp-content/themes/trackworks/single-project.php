@@ -9,7 +9,7 @@
 
 get_header(); ?>
 <script type="text/javascript" src="<?php echo get_template_directory_uri().'/js/jquery.masonry.js';?>"></script>
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
 		<div class="container">
